@@ -227,8 +227,8 @@ namespace ZeepScript
                 lua.Globals[function.Namespace] = namespaceTable;
             }
 
-            var existingFunction = namespaceTable.Get(function.Name);
-            if (existingFunction == null)
+            DynValue existingFunction = namespaceTable.Get(function.Name);
+            if (existingFunction == DynValue.Nil)
             {
                 namespaceTable[function.Name] = function.CreateFunction();
                 Plugin.Instance.Log($"Registered: {function.Namespace}.{function.Name}");
@@ -271,7 +271,7 @@ namespace ZeepScript
             ListenedToEvents.Clear();
         }
     
-        private static void TryLoadLuaFromPluginsFolder(string name)
+        public static void TryLoadLuaFromPluginsFolder(string name)
         {
             string searchPattern = $"{name}.lua";
 
